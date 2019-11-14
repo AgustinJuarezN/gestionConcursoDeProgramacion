@@ -205,7 +205,7 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
             int index = 1;
 
             for (int i = 0; i < selected.size(); i++) {
-                Problema selectedP = this.modelo.getHelper().getProblemaPorTitulo(((Problema) selected.toArray()[i]).getTitulo());
+                Problema selectedP = this.modelo.getProblemaPorTitulo(((Problema) selected.toArray()[i]).getTitulo());
                 integ.add(selectedP);
             }
 
@@ -217,7 +217,7 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
         
         linkProblemaSeleccionado = integ.get(0).getLink();
         
-        ArrayList<String> lineasValidaciones = this.modelo.getHelper().compareArchives(this.path, linkProblemaSeleccionado);
+        ArrayList<String> lineasValidaciones = this.modelo.compareArchives(this.path, linkProblemaSeleccionado);
         DefaultListModel<String> model = new DefaultListModel<>();
         int index = 1;
         String mensajeValidacion="";

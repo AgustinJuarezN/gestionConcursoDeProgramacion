@@ -5,13 +5,14 @@
  */
 package dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author agustinjuarez
  */
-public class Equipo {
+public class Equipo implements Serializable{
     
     private String nombre;
     private ArrayList<Estudiante> integrantes = new ArrayList<>();

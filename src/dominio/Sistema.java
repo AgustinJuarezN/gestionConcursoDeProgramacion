@@ -7,6 +7,7 @@ package dominio;
 import java.io.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import utils.ArchivoLectura;
 import utils.Helpers;
 /**
  *
@@ -22,13 +23,14 @@ public class Sistema implements Serializable {
     private Helpers helper;
     
     public Sistema() {
-
-        this.estudiantes = this.recuperarEstudiante();
-        this.docentes = this.recuperarDocentes();
+        this.estudiantes = new ArrayList<Estudiante>();
+        this.docentes = new ArrayList<Docente>();
         this.equipos = new ArrayList<Equipo>();
         this.problemas = new ArrayList<Problema>();
         this.lenguajes = new ArrayList<String>();
-        this.helper = new Helpers(this);
+        this.helper = new Helpers();
+        
+        this.recuperarSistema();
         
         // DATA EJEMPLO
         
@@ -84,7 +86,7 @@ public class Sistema implements Serializable {
     
     public  ArrayList<String> getLenguajes() {
         return lenguajes;
-    }
+    }  
 
     private ArrayList<Estudiante> recuperarEstudiante(){
         ArrayList<Estudiante> lsEst = new ArrayList<>();
@@ -103,21 +105,13 @@ public class Sistema implements Serializable {
         return lsEst;
     }
     
-    private ArrayList<Docente> recuperarDocentes(){
-        ArrayList<Docente> lsDoc = new ArrayList<>();
-        try {
-            FileInputStream archivo = new FileInputStream("Datos");
-            ObjectInputStream datos = new ObjectInputStream(archivo);
-            
-            while(true){
-                Docente d = (Docente)datos.readObject();
-                lsDoc.add(d);
-            }
-            
-        } catch (Exception e) {
-            System.out.println("No hay mas objetos: " + e.getMessage());
+    public boolean agregarObjeto (Object o, ArrayList<Object> lista) {
+        boolean seAgrego = false;
+        if(!lista.contains(o)) {
+            lista.add(o);
+            seAgrego = true;
         }
-        return lsDoc;
+        return seAgrego;
     }
 
     public boolean agregarEstudiante(Estudiante e) {
@@ -163,6 +157,93 @@ public class Sistema implements Serializable {
             seCreo = true;
         }
         return seCreo;
+    }
+    
+     public Problema getProblemaPorTitulo(String titulo) {
+        Problema pro = null;
+        for (Problema problema : this.getProblemas()) {
+            if (problema.getTitulo().equals(titulo)) {
+                pro = problema;
+            }
+        }
+        return pro;
+    }
+
+    public Docente getDocentePorCi(String ci) {
+        Docente ret = null;
+        for (Docente doc : this.getDocentes()) {
+            if (doc.getCi().equals(ci)) {
+                ret = doc;
+            }
+        }
+        return ret;
+    }
+
+    public Estudiante getEstudianteCi(String ci) {
+        Estudiante est = null;
+        for (Estudiante estudiante : this.getEstudiantes()) {
+            if (estudiante.getCi().equals(ci)) {
+                est = estudiante;
+            }
+        }
+
+        return est;
+    }
+    
+    public boolean lineaErrorDatos(String lineaComparar, String lineaModelo) {
+        boolean lineaErrorDatos = false;
+        String lineaAComparar = lineaComparar.trim().toLowerCase();
+        String lModelo = lineaModelo.trim().toLowerCase();
+        for (int i = 0; i < lineaAComparar.length() && !lineaErrorDatos; i++) {
+            if (lineaAComparar.charAt(i) != lModelo.charAt(i)) {
+                lineaErrorDatos = true;
+            }
+        }
+        return lineaErrorDatos;
+    }
+
+    public ArrayList<String> compareArchives(String linkArchivoEquipo, String linkArchivoProblema) {
+        ArrayList<String> errorLineas  = new ArrayList<>();
+        ArchivoLectura archivoEquipo = new ArchivoLectura(linkArchivoEquipo);
+        ArchivoLectura archivoProblema = new ArchivoLectura(linkArchivoProblema);
+
+        boolean hayMasLineasArchEquipo = archivoEquipo.hayMasLineas();
+        boolean hayMasLineasArchProblema = archivoProblema.hayMasLineas();
+
+        while (hayMasLineasArchEquipo && hayMasLineasArchProblema) {
+            if (!archivoEquipo.linea().equals(archivoProblema.linea())) {
+
+                if (this.lineaErrorDatos(archivoEquipo.linea(), archivoProblema.linea())) {
+                    errorLineas.add("d");
+                } else {
+                    errorLineas.add("f");
+                }
+            } else {
+                errorLineas.add("ok");
+            }
+            hayMasLineasArchEquipo = archivoEquipo.hayMasLineas();
+            hayMasLineasArchProblema = archivoProblema.hayMasLineas();
+        }
+
+        archivoEquipo.cerrar();
+        archivoProblema.cerrar();
+        
+        return errorLineas;
+    }
+    
+    public void recuperarSistema(){
+        try {
+            FileInputStream archivo = new FileInputStream("Datos");
+            ObjectInputStream datos = new ObjectInputStream(archivo);
+
+            Sistema sistemaGuardado = (Sistema)datos.readObject();
+            System.out.println("encontró el sistema guardado");
+            this.setEstudiantes(sistemaGuardado.getEstudiantes());
+            System.out.println("Sistema:"+sistemaGuardado.getEstudiantes());
+              
+        } catch (Exception e) {
+            System.out.println("No hay mas objetos: " + e.getMessage());
+        }
     }
     
 }
