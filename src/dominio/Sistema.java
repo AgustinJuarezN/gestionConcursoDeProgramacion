@@ -13,21 +13,21 @@ import utils.Helpers;
  *
  * @author agustinjuarez
  */
-public class Sistema implements Serializable {
+public final class Sistema implements Serializable {
     
-    private static ArrayList<Estudiante> estudiantes;
-    private static ArrayList<Docente> docentes;
-    private static ArrayList<Equipo> equipos;
-    private static ArrayList<Problema> problemas;
-    private static ArrayList<String> lenguajes;
-    private Helpers helper;
+    private  ArrayList<Estudiante> estudiantes;
+    private  ArrayList<Docente> docentes;
+    private  ArrayList<Equipo> equipos;
+    private  ArrayList<Problema> problemas;
+    private  ArrayList<String> lenguajes;
+    private  transient Helpers helper;
     
     public Sistema() {
-        this.estudiantes = new ArrayList<Estudiante>();
-        this.docentes = new ArrayList<Docente>();
-        this.equipos = new ArrayList<Equipo>();
-        this.problemas = new ArrayList<Problema>();
-        this.lenguajes = new ArrayList<String>();
+        this.estudiantes = new ArrayList<>();
+        this.docentes = new ArrayList<>();
+        this.equipos = new ArrayList<>();
+        this.problemas = new ArrayList<>();
+        this.lenguajes = new ArrayList<>();
         this.helper = new Helpers();
         
         this.recuperarSistema();
@@ -69,7 +69,7 @@ public class Sistema implements Serializable {
     }
 
     public  void setEstudiantes(ArrayList<Estudiante> estudiantes) {
-        Sistema.estudiantes = estudiantes;
+        this.estudiantes = estudiantes;
     }
 
     public  ArrayList<Docente> getDocentes() {
@@ -77,7 +77,7 @@ public class Sistema implements Serializable {
     }
 
     public  void setDocentes(ArrayList<Docente> docentes) {
-        Sistema.docentes = docentes;
+        this.docentes = docentes;
     }
     
     public  ArrayList<Equipo> getEquipos() {
@@ -237,13 +237,18 @@ public class Sistema implements Serializable {
             ObjectInputStream datos = new ObjectInputStream(archivo);
 
             Sistema sistemaGuardado = (Sistema)datos.readObject();
-            System.out.println("encontró el sistema guardado");
+            System.out.println("encontró el sistema guardado:");
             this.setEstudiantes(sistemaGuardado.getEstudiantes());
-            System.out.println("Sistema:"+sistemaGuardado.getEstudiantes());
+            System.out.println(sistemaGuardado);
               
         } catch (Exception e) {
             System.out.println("No hay mas objetos: " + e.getMessage());
         }
+    }
+    
+     @Override
+    public String toString() {
+        return "Sistema{" + "estudiantes=" + estudiantes + ",\n docentes=" + docentes + ",\n  equipos=" + equipos + ",\n  problemas=" + problemas + ",\n  lenguajes=" + lenguajes + '}';
     }
     
 }
