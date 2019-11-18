@@ -243,14 +243,18 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
         String mensajeValidacion="";
         
         for (String linea : lineasValidaciones) {
-            if (linea.equals("f")) {
-                mensajeValidacion = "-Linea "+index+" Error de Formato";
-                cantErrores+=1;
-            }else if (linea.equals("d")){
-                mensajeValidacion = "*Linea "+index+" Error de datos";
-                cantErrores+=1;
-            }else {
-                mensajeValidacion = "+Linea "+index+" ok";
+            switch (linea) {
+                case "f":
+                    mensajeValidacion = "-Linea "+index+" Error de Formato";
+                    cantErrores+=1;
+                    break;
+                case "d":
+                    mensajeValidacion = "*Linea "+index+" Error de datos";
+                    cantErrores+=1;
+                    break;
+                default:
+                    mensajeValidacion = "+Linea "+index+" ok";
+                    break;
             }
             model.addElement(mensajeValidacion);
             index++;

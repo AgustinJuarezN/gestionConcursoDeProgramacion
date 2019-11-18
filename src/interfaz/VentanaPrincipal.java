@@ -255,6 +255,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         VisualizacionMenu.setMnemonic('c');
         VisualizacionMenu.setText("Visualizacion");
+        VisualizacionMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VisualizacionMenuActionPerformed(evt);
+            }
+        });
         helpMenu.add(VisualizacionMenu);
 
         EstadisticasMenu.setMnemonic('a');
@@ -359,6 +364,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaEnvios vent = new VentanaEnvios(this.modelo);
         vent.setVisible(true);
     }//GEN-LAST:event_VisualizacionMenu1ActionPerformed
+
+    private void VisualizacionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizacionMenuActionPerformed
+        VentanaResultados vent = new VentanaResultados(this.modelo);
+        vent.setVisible(true);
+    }//GEN-LAST:event_VisualizacionMenuActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
