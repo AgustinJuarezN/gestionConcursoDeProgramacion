@@ -67,6 +67,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenu();
         VisualizacionMenu = new javax.swing.JMenuItem();
         EstadisticasMenu = new javax.swing.JMenuItem();
+        VisualizacionMenu1 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -260,6 +261,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         EstadisticasMenu.setText("Estadisticas");
         helpMenu.add(EstadisticasMenu);
 
+        VisualizacionMenu1.setMnemonic('c');
+        VisualizacionMenu1.setText("Envios");
+        VisualizacionMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VisualizacionMenu1ActionPerformed(evt);
+            }
+        });
+        helpMenu.add(VisualizacionMenu1);
+
         menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
@@ -344,6 +354,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void VisualizacionMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizacionMenu1ActionPerformed
+        VentanaEnvios vent = new VentanaEnvios(this.modelo);
+        vent.setVisible(true);
+    }//GEN-LAST:event_VisualizacionMenu1ActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -351,6 +366,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem CargaIndividualMenu;
     private javax.swing.JMenuItem EstadisticasMenu;
     private javax.swing.JMenuItem VisualizacionMenu;
+    private javax.swing.JMenuItem VisualizacionMenu1;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;

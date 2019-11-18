@@ -19,11 +19,9 @@ import javax.swing.JOptionPane;
 public class VentanaAgregarEquipo extends javax.swing.JFrame {
     
     private Sistema modelo;
-
     /** Creates new form ventanaAgregarDocente */
     public VentanaAgregarEquipo() {
         initComponents();
-        this.actualizarLista();
     }
     
     public VentanaAgregarEquipo(Sistema modelo) {
@@ -37,7 +35,7 @@ public class VentanaAgregarEquipo extends javax.swing.JFrame {
     private void cargarListaEstudiantes(){
         
         DefaultListModel l = new DefaultListModel();
-        for(Estudiante e : this.modelo.getEstudiantes()){
+        for(Estudiante e : this.modelo.getEstudiantesSinEquipo()){
             l.addElement(e);
         }
         jListEstudiantes.setModel(l);
@@ -92,7 +90,7 @@ public class VentanaAgregarEquipo extends javax.swing.JFrame {
         getContentPane().add(filler1);
         filler1.setBounds(380, 80, 0, 200);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(20, 40, 310, 20);
+        jSeparator1.setBounds(30, 20, 310, 30);
         getContentPane().add(jSeparator2);
         jSeparator2.setBounds(400, 40, 160, 2);
 
@@ -108,7 +106,7 @@ public class VentanaAgregarEquipo extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(70, 70, 240, 210);
 
-        jLabel2.setText("Seleccione los integrantes del equipo:");
+        jLabel2.setText("Estudiantes disponibles (Sin equipo asignado)");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(70, 50, 240, 14);
 

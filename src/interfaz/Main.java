@@ -13,10 +13,9 @@ import utils.Helpers;
  */
 public class Main {
     public static void main(String[] args) {
-        //Helpers helper = new Helpers();
-        //Sistema modelo = helper.recuperarSistema();
-        //if(modelo == null) {System.out.println("sistema vino null");}
-        Sistema modelo = new Sistema();
+        Helpers helper = new Helpers();
+        Sistema modelo = helper.recuperarSistema();
+        if(modelo == null) {System.out.println("sistema vino null");}
         VentanaPrincipal ventana = new VentanaPrincipal(modelo);
         ventana.setVisible(true);
     } 

@@ -16,7 +16,8 @@ public class Equipo implements Serializable{
     
     private String nombre;
     private ArrayList<Estudiante> integrantes = new ArrayList<>();
-    
+    private ArrayList<Problema> multas  = new ArrayList<>();
+
     public Equipo(String nombre, ArrayList<Estudiante> integrantes) {
         this.nombre = nombre;
         this.integrantes = integrantes;
@@ -30,6 +31,26 @@ public class Equipo implements Serializable{
         }
         return seAgrego;
     }
+    
+    public ArrayList<Problema> getMultas() {
+        return multas;
+    }
+    
+    public void agregarMulta(Problema mul) {
+        multas.add((Problema) mul);
+    }
+    
+    public int cantMultasPorEjercicio(Problema prob) {
+        int cant = 0;
+        for (Problema mul : this.getMultas()) {
+           if (mul.getTitulo().equals(prob.getTitulo())) {
+               cant++;
+           }
+        }
+        return cant;
+    }
+            
+    
 
     public String getNombre() {
         return nombre;
@@ -49,6 +70,6 @@ public class Equipo implements Serializable{
     
      @Override
     public String toString() {
-        return nombre+" "+integrantes;
+        return nombre+" "+integrantes+" "+multas;
     }
 }

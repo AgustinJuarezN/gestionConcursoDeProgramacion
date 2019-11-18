@@ -186,7 +186,16 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El archivo ha sido deseleccionado.", "Informacion",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jFileChooserActionPerformed
-
+    
+    private boolean validandoCampos() {
+        boolean ok = false;
+        if (jListProblemas.getSelectedValue() != null && jListEquipos.getSelectedValue() != null && !jTextFieldTiempo.getText().equals("") && !this.path.equals("") ) {
+            ok = true;
+        }
+        
+        return ok;
+    }
+    
     private void jButtonVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerificarActionPerformed
         String linkProblemaSeleccionado;
         boolean validate;
@@ -197,25 +206,36 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
         if (tiempo == 0) {
             JOptionPane.showMessageDialog(null, "Datos invalidos. Ingrese nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        //EQUIPO
+        
+        List<String> selectEquipos = jListEquipos.getSelectedValuesList();
+        Equipo selectedE = null;
+        if (selectEquipos.size() == 1) {
+            for (int i = 0; i < selectEquipos.size(); i++) {
+                 selectedE = this.modelo.getEquipoPorNombre(((Equipo) selectEquipos.toArray()[i]).getNombre());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar 1 problema solamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
 
         //PROBLEMA 
         List<String> selected = jListProblemas.getSelectedValuesList();
-        ArrayList<Problema> integ = new ArrayList<>();
+        Problema selectedP = null;
         if (selected.size() == 1) {
             int index = 1;
 
             for (int i = 0; i < selected.size(); i++) {
-                Problema selectedP = this.modelo.getProblemaPorTitulo(((Problema) selected.toArray()[i]).getTitulo());
-                integ.add(selectedP);
+                selectedP = this.modelo.getProblemaPorTitulo(((Problema) selected.toArray()[i]).getTitulo());
             }
 
-            System.out.println("link problema seleccionado:" + integ.get(0).getTitulo());
+            System.out.println("link problema seleccionado:" + selectedP.getTitulo());
 
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar 1 problema solamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
         
-        linkProblemaSeleccionado = integ.get(0).getLink();
+        linkProblemaSeleccionado = selectedP.getLink();
         
         ArrayList<String> lineasValidaciones = this.modelo.compareArchives(this.path, linkProblemaSeleccionado);
         DefaultListModel<String> model = new DefaultListModel<>();
@@ -236,20 +256,30 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
             index++;
         }
         int cantLineas = model.getSize();
+        String resultado;
         if (cantErrores == 0) {
-            jLabelCorrecto.setText("Correcto");
+            resultado = "Correcto";         
             jLabelCorrecto.setBackground(Color.GREEN);
         }else {
-            jLabelCorrecto.setText("Incorrecto");
+            resultado = "Incorrecto";
+            selectedE.agregarMulta(selectedP);
             jLabelCorrecto.setBackground(Color.RED);
-            
             jLabelCantErrores.setText(cantErrores+" errores en "+cantLineas+" lineas");
         }
+            
+        jLabelCorrecto.setText(resultado);
         
         jListResultado.setModel(model);
         ListCellRenderer renderer = new RenderizadorResultado();
         jListResultado.setCellRenderer(renderer);
         System.out.println("cant errores:"+cantErrores);
+        
+        if (this.validandoCampos()) {
+            Envio env = new Envio(selectedE,selectedP,Integer.parseInt(jTextFieldTiempo.getText()),this.modelo.getLenguajePorIndex(jComboBoxLenguaje.getSelectedIndex()),this.path,resultado);
+            this.modelo.agregarEnvio(env);
+        } else {
+            JOptionPane.showMessageDialog(null, "Faltan completar campos.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonVerificarActionPerformed
 
 

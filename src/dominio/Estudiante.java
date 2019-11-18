@@ -5,13 +5,12 @@
  */
 package dominio;
 
-import java.io.Serializable;
 
 /**
  *
  * @author agustinjuarez
  */
-public class Estudiante extends Persona implements Serializable {
+public class Estudiante extends Persona {
     
     public String numero;
     public String semestre;
