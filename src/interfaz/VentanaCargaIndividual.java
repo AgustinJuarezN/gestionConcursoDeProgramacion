@@ -235,54 +235,61 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debes seleccionar 1 problema solamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
         
-        linkProblemaSeleccionado = selectedP.getLink();
-        
-        ArrayList<String> lineasValidaciones = this.modelo.compareArchives(this.path, linkProblemaSeleccionado);
-        DefaultListModel<String> model = new DefaultListModel<>();
-        int index = 1;
-        String mensajeValidacion="";
-        
-        for (String linea : lineasValidaciones) {
-            switch (linea) {
-                case "f":
-                    mensajeValidacion = "-Linea "+index+" Error de Formato";
-                    cantErrores+=1;
-                    break;
-                case "d":
-                    mensajeValidacion = "*Linea "+index+" Error de datos";
-                    cantErrores+=1;
-                    break;
-                default:
-                    mensajeValidacion = "+Linea "+index+" ok";
-                    break;
+        if (!this.modelo.equipoResolvioProblema(selectedE, selectedP)) {
+            linkProblemaSeleccionado = selectedP.getLink();
+
+            ArrayList<String> lineasValidaciones = this.modelo.compareArchives(this.path, linkProblemaSeleccionado);
+            DefaultListModel<String> model = new DefaultListModel<>();
+            int index = 1;
+            String mensajeValidacion="";
+
+            for (String linea : lineasValidaciones) {
+                switch (linea) {
+                    case "f":
+                        mensajeValidacion = "-Linea "+index+" Error de Formato";
+                        cantErrores+=1;
+                        break;
+                    case "d":
+                        mensajeValidacion = "*Linea "+index+" Error de datos";
+                        cantErrores+=1;
+                        break;
+                    default:
+                        mensajeValidacion = "+Linea "+index+" ok";
+                        break;
+                }
+                model.addElement(mensajeValidacion);
+                index++;
             }
-            model.addElement(mensajeValidacion);
-            index++;
-        }
-        int cantLineas = model.getSize();
-        String resultado;
-        if (cantErrores == 0) {
-            resultado = "Correcto";         
-            jLabelCorrecto.setBackground(Color.GREEN);
+            int cantLineas = model.getSize();
+            String resultado;
+            boolean resolvio = false;
+
+            if (cantErrores == 0) {
+                resultado = "Correcto";    
+                resolvio = true;
+                jLabelCorrecto.setBackground(Color.GREEN);
+            }else {
+                resultado = "Incorrecto";
+                selectedE.agregarMulta(selectedP);
+                jLabelCorrecto.setBackground(Color.RED);
+                jLabelCantErrores.setText(cantErrores+" errores en "+cantLineas+" lineas");
+            }
+
+            jLabelCorrecto.setText(resultado);
+
+            jListResultado.setModel(model);
+            ListCellRenderer renderer = new RenderizadorResultado();
+            jListResultado.setCellRenderer(renderer);
+            System.out.println("cant errores:"+cantErrores);
+
+            if (this.validandoCampos()) {
+                Envio env = new Envio(selectedE,selectedP,Integer.parseInt(jTextFieldTiempo.getText()),this.modelo.getLenguajePorIndex(jComboBoxLenguaje.getSelectedIndex()),this.path,resolvio);
+                this.modelo.agregarEnvio(env);
+            } else {
+                JOptionPane.showMessageDialog(null, "Faltan completar campos.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
         }else {
-            resultado = "Incorrecto";
-            selectedE.agregarMulta(selectedP);
-            jLabelCorrecto.setBackground(Color.RED);
-            jLabelCantErrores.setText(cantErrores+" errores en "+cantLineas+" lineas");
-        }
-            
-        jLabelCorrecto.setText(resultado);
-        
-        jListResultado.setModel(model);
-        ListCellRenderer renderer = new RenderizadorResultado();
-        jListResultado.setCellRenderer(renderer);
-        System.out.println("cant errores:"+cantErrores);
-        
-        if (this.validandoCampos()) {
-            Envio env = new Envio(selectedE,selectedP,Integer.parseInt(jTextFieldTiempo.getText()),this.modelo.getLenguajePorIndex(jComboBoxLenguaje.getSelectedIndex()),this.path,resultado);
-            this.modelo.agregarEnvio(env);
-        } else {
-            JOptionPane.showMessageDialog(null, "Faltan completar campos.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El equipo '"+selectedE.getNombre()+"' ya ha resuelto el problema seleccionado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonVerificarActionPerformed
 

@@ -18,15 +18,15 @@ public class Envio implements Serializable {
     private int tiempo;
     private String lenguaje;
     private String linkSolucion;
-    private String resultado;
+    private boolean resolvio;
     
-    public Envio(Equipo equipo, Problema problema, int tiempo, String lenguaje, String linkSolucion, String resultado) {
+    public Envio(Equipo equipo, Problema problema, int tiempo, String lenguaje, String linkSolucion, boolean resolvio) {
         this.equipo = equipo;
         this.problema = problema;
         this.tiempo = tiempo;
         this.lenguaje = lenguaje;
         this.linkSolucion = linkSolucion;
-        this.resultado = resultado;
+        this.resolvio = resolvio;
     }
 
     public Equipo getEquipo() {
@@ -69,17 +69,13 @@ public class Envio implements Serializable {
         this.linkSolucion = linkSolucion;
     }
 
-    public String getResultado() {
-        return resultado;
+    public boolean getResolvio() {
+        return resolvio;
     }
-
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
-    
-    
+     
     @Override
     public String toString() {
-        return "Envio{" + "equipo=" + equipo + ", problema=" + problema + ", tiempo=" + tiempo + ", lenguaje=" + lenguaje + ", linkSolucion=" + linkSolucion + ", resultado=" + resultado + '}';
+        return "Envio{" + "equipo=" + equipo + ", problema=" + problema + ", tiempo=" + tiempo + ", lenguaje=" + lenguaje + ", linkSolucion=" + linkSolucion + ", resolvio=" + resolvio + '}';
     }
+
 }

@@ -280,6 +280,52 @@ public final class Sistema implements Serializable {
         return errorLineas;
     }
     
+    public boolean equipoResolvioProblema(Equipo eq, Problema pro) {
+        boolean resolvio = false;
+        
+        for (Envio env : this.getEnvios()) {
+            if (env.getEquipo().equals(eq) && env.getProblema().equals(pro)) {
+                if (env.getResolvio()) {
+                    resolvio = true;
+                }
+            }
+        }
+        
+        return resolvio;
+    }
+    
+    public int[] infoEquipoPorProblema (Equipo eq, Problema pro) {
+        int info[] = new int[4];
+        int tiempo = 0;
+        int multas = 0;
+        int resolvio = 0;
+        int intentos = 0;
+        
+        //tiempo y si resolvio el problema
+        for (Envio env : this.getEnvios()) {
+            if (env.getEquipo().equals(eq) && env.getProblema().equals(pro)) {
+                intentos++;
+                tiempo =+ env.getTiempo();
+                if (env.getResolvio()) {
+                    resolvio = 1;
+                }
+            }
+        }
+        
+        //Multas del equipo por ese problema
+        for (Problema prob : eq.getMultas()) {
+            if (prob.equals(pro)) {
+                multas++;
+            }
+        }
+        
+        info[0] = resolvio;
+        info[1] = tiempo;
+        info[2] = multas;
+        info[3] = intentos;
+        return  info;
+    }
+    
      @Override
     public String toString() {
         return "Sistema{" + "estudiantes=" + estudiantes + ",\n docentes=" + docentes + ",\n  equipos=" + equipos + ",\n  problemas=" + problemas + ",\n  lenguajes=" + lenguajes + '}';

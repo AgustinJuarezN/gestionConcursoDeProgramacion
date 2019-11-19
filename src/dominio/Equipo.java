@@ -50,8 +50,6 @@ public class Equipo implements Serializable{
         return cant;
     }
             
-    
-
     public String getNombre() {
         return nombre;
     }
@@ -71,5 +69,10 @@ public class Equipo implements Serializable{
      @Override
     public String toString() {
         return nombre+" "+integrantes+" "+multas;
+    }
+    
+     @Override
+    public boolean equals(Object obj) {
+        return this.getNombre().equals(((Persona) obj).getNombre());
     }
 }
