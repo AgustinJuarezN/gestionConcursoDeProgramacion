@@ -73,6 +73,6 @@ public class Equipo implements Serializable{
     
      @Override
     public boolean equals(Object obj) {
-        return this.getNombre().equals(((Persona) obj).getNombre());
+        return this.getNombre().equals(((Equipo) obj).getNombre());
     }
 }

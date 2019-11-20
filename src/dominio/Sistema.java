@@ -21,7 +21,7 @@ public final class Sistema implements Serializable {
     private  ArrayList<Problema> problemas;
     private  ArrayList<String> lenguajes;
     private ArrayList<Envio> envios;
-    private  Helpers helper;
+    private final  Helpers helper;
     
     public Sistema() {
         this.estudiantes = new ArrayList<>();
@@ -292,6 +292,16 @@ public final class Sistema implements Serializable {
         }
         
         return resolvio;
+    }
+    
+    public ArrayList<Envio> getEnviosPorProblemaYEquipo(Equipo eq, Problema pro) {
+        ArrayList<Envio> list = new ArrayList<>();
+        for (Envio env : this.getEnvios()) {
+            if (env.getEquipo().equals(eq) && env.getProblema().equals(pro)) {
+                list.add(env);
+            }
+        }
+        return list;
     }
     
     public int[] infoEquipoPorProblema (Equipo eq, Problema pro) {

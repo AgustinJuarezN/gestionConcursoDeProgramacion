@@ -7,9 +7,7 @@
 package interfaz;
 
 import dominio.*;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 /**
  *
