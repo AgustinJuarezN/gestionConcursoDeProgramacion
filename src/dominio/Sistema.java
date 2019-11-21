@@ -87,6 +87,10 @@ public final class Sistema implements Serializable {
         this.docentes = docentes;
     }
     
+    public  void setEquipos(ArrayList<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+    
     public  ArrayList<Equipo> getEquipos() {
         return equipos;
     }

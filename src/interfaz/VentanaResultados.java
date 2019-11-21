@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,14 +27,16 @@ public class VentanaResultados extends javax.swing.JFrame {
     private JButton[][] botones;
     private JButton[][] botonesProblemas;
     private JButton[][] botonesEquipos;
-
+    private boolean ordenarPorNombre = false;
+    private boolean ordenarPorResueltos = false;
+    private boolean ordenarPorTiempo = false;
+    ArrayList<Equipo> listEquipos = new ArrayList<>();
     public VentanaResultados(Sistema modelo) {
         initComponents();
         this.modelo = modelo;
+        this.listEquipos = this.modelo.getEquipos();
         this.setLocationRelativeTo(null);
-        this.cargarBotonesEquipos();
-        this.cargarBotonesProblemas();
-        this.cargarBotonesEstadistica();
+        this.actualizar();
     }
 
     public void cargarBotonesEstadistica() {
@@ -87,14 +90,14 @@ public class VentanaResultados extends javax.swing.JFrame {
 
     public void cargarBotonesEquipos() {
 
-        int cantFilas = this.modelo.getEquipos().size();
+        int cantFilas = this.listEquipos.size();
         int cantColumnas = 1;
         jPanelEquipos.setLayout(new GridLayout(cantFilas, cantColumnas));
         this.botonesEquipos = new JButton[cantFilas][cantColumnas];
         for (int i = 0; i < this.botonesEquipos.length; i++) {
             for (int j = 0; j < this.botonesEquipos[0].length; j++) {
                 JButton jButton = new JButton();
-                jButton.setText(this.modelo.getEquipos().get(i).getNombre());
+                jButton.setText(this.listEquipos.get(i).getNombre());
                 jPanelEquipos.add(jButton);
                 this.botonesEquipos[i][j] = jButton;
             }
@@ -108,14 +111,20 @@ public class VentanaResultados extends javax.swing.JFrame {
         jPanelProblemas.setLayout(new GridLayout(cantFilas, cantColumnas));
         this.botonesProblemas = new JButton[cantFilas][cantColumnas];
         
-        for (int i = 0; i < this.botonesProblemas.length; i++) {
+        for (JButton[] botonesProblema : this.botonesProblemas) {
             for (int j = 0; j < this.botonesProblemas[0].length; j++) {
                 JButton jButton = new JButton();
                 jButton.setText(this.modelo.getProblemas().get(j).getTitulo());
                 jPanelProblemas.add(jButton);
-                this.botonesProblemas[i][j] = jButton;
+                botonesProblema[j] = jButton;
             }
         }
+    }
+    
+    public void actualizar() {
+        this.cargarBotonesEquipos();
+        this.cargarBotonesProblemas();
+       // this.cargarBotonesEstadistica();
     }
 
     private class ListenerBoton implements ActionListener {
@@ -167,6 +176,9 @@ public class VentanaResultados extends javax.swing.JFrame {
         panelMatriz = new javax.swing.JPanel();
         jPanelEquipos = new javax.swing.JPanel();
         jPanelProblemas = new javax.swing.JPanel();
+        ButtonOrdenarNombre = new javax.swing.JButton();
+        ButtonOrdenarResueltos = new javax.swing.JButton();
+        ButtonOrdenarTiempo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -181,11 +193,52 @@ public class VentanaResultados extends javax.swing.JFrame {
         getContentPane().add(jPanelProblemas);
         jPanelProblemas.setBounds(130, 10, 390, 60);
 
+        ButtonOrdenarNombre.setText("Nombre");
+        ButtonOrdenarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonOrdenarNombreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ButtonOrdenarNombre);
+        ButtonOrdenarNombre.setBounds(530, 120, 110, 23);
+
+        ButtonOrdenarResueltos.setText("Resueltos");
+        getContentPane().add(ButtonOrdenarResueltos);
+        ButtonOrdenarResueltos.setBounds(530, 160, 110, 23);
+
+        ButtonOrdenarTiempo.setText("Tiempo");
+        ButtonOrdenarTiempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonOrdenarTiempoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ButtonOrdenarTiempo);
+        ButtonOrdenarTiempo.setBounds(530, 200, 110, 23);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ButtonOrdenarTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOrdenarTiempoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonOrdenarTiempoActionPerformed
+
+    private void ButtonOrdenarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOrdenarNombreActionPerformed
+
+        if(!this.ordenarPorNombre) {
+            Collections.sort(this.listEquipos);
+            this.ordenarPorNombre = true;
+        }else {
+            Collections.reverse(this.listEquipos);
+            this.ordenarPorNombre = false;
+        }
+        this.actualizar();
+    }//GEN-LAST:event_ButtonOrdenarNombreActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonOrdenarNombre;
+    private javax.swing.JButton ButtonOrdenarResueltos;
+    private javax.swing.JButton ButtonOrdenarTiempo;
     private javax.swing.JPanel jPanelEquipos;
     private javax.swing.JPanel jPanelProblemas;
     private javax.swing.JPanel panelMatriz;

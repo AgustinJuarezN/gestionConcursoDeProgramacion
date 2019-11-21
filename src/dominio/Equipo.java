@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author agustinjuarez
  */
-public class Equipo implements Serializable{
+public class Equipo implements Serializable, Comparable<Equipo> {
     
     private String nombre;
     private ArrayList<Estudiante> integrantes = new ArrayList<>();
@@ -71,8 +71,14 @@ public class Equipo implements Serializable{
         return nombre+" "+integrantes+" "+multas;
     }
     
-     @Override
+    @Override
     public boolean equals(Object obj) {
         return this.getNombre().equals(((Equipo) obj).getNombre());
+    }
+    
+    
+    @Override
+    public int compareTo(Equipo eq) {
+        return this.nombre.compareTo(eq.nombre);
     }
 }
