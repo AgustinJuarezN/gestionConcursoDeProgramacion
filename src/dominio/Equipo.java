@@ -17,11 +17,32 @@ public class Equipo implements Serializable, Comparable<Equipo> {
     private String nombre;
     private ArrayList<Estudiante> integrantes = new ArrayList<>();
     private ArrayList<Problema> multas  = new ArrayList<>();
+    private int ejerciciosResueltos;
+    public int tiempoTotalEjericicios;
 
     public Equipo(String nombre, ArrayList<Estudiante> integrantes) {
         this.nombre = nombre;
         this.integrantes = integrantes;
+        this.ejerciciosResueltos = 0;
+        this.tiempoTotalEjericicios = 0;
     }
+    
+    public int getTiempoTotalEjercicios() {
+        return tiempoTotalEjericicios;
+    }
+
+    public void setTiempoTotalEjercicios(int tiempo) {
+        this.tiempoTotalEjericicios = this.tiempoTotalEjericicios + tiempo;
+    }
+    
+    public int getEjerciciosResueltos() {
+        return ejerciciosResueltos;
+    }
+
+    public void setEjerciciosResueltos(int ejerciciosResueltos) {
+        this.ejerciciosResueltos = this.ejerciciosResueltos + ejerciciosResueltos;
+    }
+
     
     public boolean agregarIntegrante(Estudiante e) {
         boolean seAgrego = false;

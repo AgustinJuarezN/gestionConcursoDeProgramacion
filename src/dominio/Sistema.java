@@ -4,25 +4,27 @@
  * and open the template in the editor.
  */
 package dominio;
+
 import java.io.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import utils.ArchivoLectura;
 import utils.Helpers;
+
 /**
  *
  * @author agustinjuarez
  */
 public final class Sistema implements Serializable {
-    
-    private  ArrayList<Estudiante> estudiantes;
-    private  ArrayList<Docente> docentes;
-    private  ArrayList<Equipo> equipos;
-    private  ArrayList<Problema> problemas;
-    private  ArrayList<String> lenguajes;
+
+    private ArrayList<Estudiante> estudiantes;
+    private ArrayList<Docente> docentes;
+    private ArrayList<Equipo> equipos;
+    private ArrayList<Problema> problemas;
+    private ArrayList<String> lenguajes;
     private ArrayList<Envio> envios;
-    private final  Helpers helper;
-    
+    private final Helpers helper;
+
     public Sistema() {
         this.estudiantes = new ArrayList<>();
         this.docentes = new ArrayList<>();
@@ -31,30 +33,13 @@ public final class Sistema implements Serializable {
         this.lenguajes = new ArrayList<>();
         this.envios = new ArrayList<>();
         this.helper = new Helpers();
-        
-        //this.recuperarSistema();
-        
-        // DATA EJEMPLO
-        
-        //EQUIPO
-        /*
-        Equipo equipo = new Equipo("Equipo1",this.estudiantes); // estudiantes viene del archivo serializable (3 estudiantes)
-        this.agregarEquipo(equipo);
-        
-        // DOCENTES
-        Docente d1 = new Docente("Docente1","48653479","docente1@gmail.com","2018");
-        Docente d2 = new Docente("Docente2","48653474","docente2@gmail.com","2019");
-        Docente d3 = new Docente("Docente3","48653472","docente3@gmail.com","2015");
-        this.agregarDocente(d1);
-        this.agregarDocente(d2);
-        this.agregarDocente(d3);*/
-        
+
         // LENGUAJES
         this.agregarLenguaje("JAVA");
         this.agregarLenguaje("C++");
         this.agregarLenguaje("PYTHON");
     }
-    
+
     public ArrayList<Envio> getEnvios() {
         return envios;
     }
@@ -62,63 +47,63 @@ public final class Sistema implements Serializable {
     public void setEnvios(ArrayList<Envio> envios) {
         this.envios = envios;
     }
-    
-    public  ArrayList<Estudiante> getEstudiantes() {
+
+    public ArrayList<Estudiante> getEstudiantes() {
         return estudiantes;
     }
-    
-    public  ArrayList<Problema> getProblemas() {
+
+    public ArrayList<Problema> getProblemas() {
         return problemas;
     }
-    
-    public  Helpers getHelper() {
+
+    public Helpers getHelper() {
         return helper;
     }
 
-    public  void setEstudiantes(ArrayList<Estudiante> estudiantes) {
+    public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
 
-    public  ArrayList<Docente> getDocentes() {
+    public ArrayList<Docente> getDocentes() {
         return docentes;
     }
 
-    public  void setDocentes(ArrayList<Docente> docentes) {
+    public void setDocentes(ArrayList<Docente> docentes) {
         this.docentes = docentes;
     }
-    
-    public  void setEquipos(ArrayList<Equipo> equipos) {
+
+    public void setEquipos(ArrayList<Equipo> equipos) {
         this.equipos = equipos;
     }
-    
-    public  ArrayList<Equipo> getEquipos() {
+
+    public ArrayList<Equipo> getEquipos() {
         return equipos;
     }
-    
-    public  ArrayList<String> getLenguajes() {
-        return lenguajes;
-    }  
 
-    private ArrayList<Estudiante> recuperarEstudiante(){
+    public ArrayList<String> getLenguajes() {
+        return lenguajes;
+    }
+
+    private ArrayList<Estudiante> recuperarEstudiante() {
         ArrayList<Estudiante> lsEst = new ArrayList<>();
         try {
             FileInputStream archivo = new FileInputStream("Datos");
             ObjectInputStream datos = new ObjectInputStream(archivo);
-            
-            while(true){
-                Estudiante e1 = (Estudiante)datos.readObject();
+
+            while (true) {
+                Estudiante e1 = (Estudiante) datos.readObject();
                 lsEst.add(e1);
             }
-            
+
         } catch (Exception e) {
             System.out.println("No hay mas objetos: " + e.getMessage());
         }
         return lsEst;
     }
-    
-    public boolean agregarObjeto (Object o, ArrayList<Object> lista) {
+
+    public boolean agregarObjeto(Object o, ArrayList<Object> lista) {
         boolean seAgrego = false;
-        if(!lista.contains(o)) {
+        if (!lista.contains(o)) {
             lista.add(o);
             seAgrego = true;
         }
@@ -133,7 +118,7 @@ public final class Sistema implements Serializable {
         }
         return estudiante;
     }
-    
+
     public boolean agregarDocente(Docente d) {
         boolean docente = false;
         if (!docentes.contains(d)) {
@@ -142,7 +127,7 @@ public final class Sistema implements Serializable {
         }
         return docente;
     }
-    
+
     public boolean agregarEquipo(Equipo eq) {
         boolean seCreo = false;
         if (!equipos.contains(eq)) {
@@ -151,7 +136,7 @@ public final class Sistema implements Serializable {
         }
         return seCreo;
     }
-    
+
     public boolean agregarProblema(Problema pro) {
         boolean seCreo = false;
         if (!problemas.contains(pro)) {
@@ -160,7 +145,7 @@ public final class Sistema implements Serializable {
         }
         return seCreo;
     }
-    
+
     public boolean agregarEnvio(Envio env) {
         boolean seCreo = false;
         if (!envios.contains(env)) {
@@ -169,7 +154,7 @@ public final class Sistema implements Serializable {
         }
         return seCreo;
     }
-    
+
     public boolean agregarLenguaje(String lang) {
         boolean seCreo = false;
         if (!lenguajes.contains(lang)) {
@@ -178,7 +163,7 @@ public final class Sistema implements Serializable {
         }
         return seCreo;
     }
-    
+
     public Problema getProblemaPorTitulo(String titulo) {
         Problema pro = null;
         for (Problema problema : this.getProblemas()) {
@@ -188,7 +173,7 @@ public final class Sistema implements Serializable {
         }
         return pro;
     }
-    
+
     public Equipo getEquipoPorNombre(String nombre) {
         Equipo eq = null;
         for (Equipo equipo : this.getEquipos()) {
@@ -198,7 +183,7 @@ public final class Sistema implements Serializable {
         }
         return eq;
     }
-    
+
     public String getLenguajePorIndex(int index) {
         return this.getLenguajes().get(index);
     }
@@ -212,14 +197,14 @@ public final class Sistema implements Serializable {
         }
         return ret;
     }
-    
+
     public ArrayList<Estudiante> getEstudiantesSinEquipo() {
         ArrayList<Estudiante> list = new ArrayList<>();
         boolean esta = false;
         for (int i = 0; i < this.getEstudiantes().size(); i++) {
             esta = false;
             Estudiante est = this.getEstudiantes().get(i);
-            for (Equipo eq: this.getEquipos()) {
+            for (Equipo eq : this.getEquipos()) {
                 if (eq.getIntegrantes().contains(est)) {
                     esta = true;
                 }
@@ -228,7 +213,7 @@ public final class Sistema implements Serializable {
                 list.add(est);
             }
         }
-        
+
         return list;
     }
 
@@ -242,7 +227,7 @@ public final class Sistema implements Serializable {
 
         return est;
     }
-    
+
     public boolean lineaErrorDatos(String lineaComparar, String lineaModelo) {
         boolean lineaErrorDatos = false;
         String lineaAComparar = lineaComparar.trim().toLowerCase();
@@ -256,7 +241,7 @@ public final class Sistema implements Serializable {
     }
 
     public ArrayList<String> compareArchives(String linkArchivoEquipo, String linkArchivoProblema) {
-        ArrayList<String> errorLineas  = new ArrayList<>();
+        ArrayList<String> errorLineas = new ArrayList<>();
         ArchivoLectura archivoEquipo = new ArchivoLectura(linkArchivoEquipo);
         ArchivoLectura archivoProblema = new ArchivoLectura(linkArchivoProblema);
 
@@ -280,13 +265,13 @@ public final class Sistema implements Serializable {
 
         archivoEquipo.cerrar();
         archivoProblema.cerrar();
-        
+
         return errorLineas;
     }
-    
+
     public boolean equipoResolvioProblema(Equipo eq, Problema pro) {
         boolean resolvio = false;
-        
+
         for (Envio env : this.getEnvios()) {
             if (env.getEquipo().equals(eq) && env.getProblema().equals(pro)) {
                 if (env.getResolvio()) {
@@ -294,10 +279,10 @@ public final class Sistema implements Serializable {
                 }
             }
         }
-        
+
         return resolvio;
     }
-    
+
     public ArrayList<Envio> getEnviosPorProblemaYEquipo(Equipo eq, Problema pro) {
         ArrayList<Envio> list = new ArrayList<>();
         for (Envio env : this.getEnvios()) {
@@ -307,42 +292,74 @@ public final class Sistema implements Serializable {
         }
         return list;
     }
-    
-    public int[] infoEquipoPorProblema (Equipo eq, Problema pro) {
+
+    public int[] infoEquipoPorProblema(Equipo eq, Problema pro) {
         int info[] = new int[4];
         int tiempo = 0;
         int multas = 0;
         int resolvio = 0;
         int intentos = 0;
-        
+
         //tiempo y si resolvio el problema
         for (Envio env : this.getEnvios()) {
             if (env.getEquipo().equals(eq) && env.getProblema().equals(pro)) {
                 intentos++;
-                tiempo =+ env.getTiempo();
+                tiempo = +env.getTiempo();
                 if (env.getResolvio()) {
                     resolvio = 1;
                 }
             }
         }
-        
+
         //Multas del equipo por ese problema
         for (Problema prob : eq.getMultas()) {
             if (prob.equals(pro)) {
                 multas++;
             }
         }
-        
+
         info[0] = resolvio;
         info[1] = tiempo;
         info[2] = multas;
         info[3] = intentos;
-        return  info;
+        return info;
     }
-    
-     @Override
+
+    public int menorTiempoEnResolverProblema(Problema p) {
+        int menorTiempo = Integer.MAX_VALUE;
+        for (Envio env : this.getEnvios()) {
+            if (env.getProblema().equals(p) && env.getResolvio()) {
+                if (env.getTiempo() < menorTiempo) {
+                    menorTiempo = env.getTiempo();
+                }
+            }
+        }
+
+        return menorTiempo;
+    }
+
+    public String[][] getEstadisticas() {
+        String[][] estadisticas = new String[this.getProblemas().size()][3];
+        int cant;
+        for (int i = 0; i < this.getProblemas().size(); i++) {
+            Problema p = this.getProblemas().get(i);
+            estadisticas[i][0] = p.getTitulo();
+            cant = 0;
+            for (Envio env : this.getEnvios()) {
+                if (env.getProblema().equals(p) && env.getResolvio()) {
+                    cant++;
+                }
+            }
+            estadisticas[i][1] = Integer.toString(cant);
+            estadisticas[i][2] = Integer.toString(this.menorTiempoEnResolverProblema(p));
+        }
+
+        return estadisticas;
+    }
+
+    @Override
     public String toString() {
         return "Sistema{" + "estudiantes=" + estudiantes + ",\n docentes=" + docentes + ",\n  equipos=" + equipos + ",\n  problemas=" + problemas + ",\n  lenguajes=" + lenguajes + '}';
     }
-    
+
 }

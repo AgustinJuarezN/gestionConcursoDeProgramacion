@@ -267,6 +267,8 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
             if (cantErrores == 0) {
                 resultado = "Correcto";    
                 resolvio = true;
+                selectedE.setEjerciciosResueltos(1);
+                selectedE.setTiempoTotalEjercicios(Integer.parseInt(jTextFieldTiempo.getText()));
                 jLabelCorrecto.setBackground(Color.GREEN);
             }else {
                 resultado = "Incorrecto";
