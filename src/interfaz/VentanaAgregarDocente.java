@@ -17,12 +17,6 @@ import javax.swing.JOptionPane;
 public class VentanaAgregarDocente extends javax.swing.JFrame {
     
     private Sistema modelo;
-
-    /** Creates new form ventanaAgregarDocente */
-    public VentanaAgregarDocente() {
-        initComponents();
-        this.actualizarLista();
-    }
     
     public VentanaAgregarDocente(Sistema modelo) {
         initComponents();
@@ -61,10 +55,8 @@ public class VentanaAgregarDocente extends javax.swing.JFrame {
         jButtonCrearDocente = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 23), new java.awt.Dimension(0, 23), new java.awt.Dimension(32767, 23));
-        jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jListDocentes = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -133,17 +125,13 @@ public class VentanaAgregarDocente extends javax.swing.JFrame {
         jLabel6.setBounds(130, 20, 140, 24);
         getContentPane().add(filler1);
         filler1.setBounds(380, 80, 0, 200);
-        getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(20, 40, 340, 250);
         getContentPane().add(jSeparator2);
         jSeparator2.setBounds(400, 40, 160, 2);
 
-        jScrollPane1.setViewportView(jListDocentes);
+        jScrollPane2.setViewportView(jListDocentes);
 
-        jScrollPane3.setViewportView(jScrollPane1);
-
-        getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(410, 70, 150, 210);
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(420, 60, 140, 210);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -178,41 +166,6 @@ public class VentanaAgregarDocente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonCrearDocenteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgregarDocente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaAgregarDocente().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
@@ -224,9 +177,7 @@ public class VentanaAgregarDocente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList<String> jListDocentes;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextFieldCICrearDocente;
     private javax.swing.JTextField jTextFieldIngresoCrearDocente;

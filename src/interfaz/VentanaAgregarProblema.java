@@ -166,7 +166,7 @@ public class VentanaAgregarProblema extends javax.swing.JFrame {
         if (this.path != "") {
             titulo = jTextFieldTituloProblema.getText();
             descripcion = jTextFieldDescripcionProblema.getText();
-            responsable = this.modelo.getHelper().getDocentePorCi(jComboBoxResponsableProblema.getSelectedItem().toString());
+            responsable = this.modelo.getDocentePorCi(jComboBoxResponsableProblema.getSelectedItem().toString());
             Problema p = new Problema(titulo,descripcion,responsable,this.path);
             if(!this.modelo.agregarProblema(p)){
                JOptionPane.showMessageDialog(null, "Ya existe un problema con ese titulo.", "Informacion",JOptionPane.WARNING_MESSAGE); 

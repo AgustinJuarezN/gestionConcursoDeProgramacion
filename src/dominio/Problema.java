@@ -5,11 +5,13 @@
  */
 package dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author agustinjuarez
  */
-public class Problema {
+public class Problema implements Serializable {
     
     private String titulo;
     private String descripcion;

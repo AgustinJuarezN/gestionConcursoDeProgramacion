@@ -6,50 +6,19 @@
 package utils;
 
 import dominio.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author agustinjuarez
  */
-public class Helpers {
-
-    Sistema modelo;
-
-    public Helpers(Sistema modelo) {
-        this.modelo = modelo;
-    }
-
-    public Problema getProblemaPorTitulo(String titulo) {
-        Problema pro = null;
-        for (Problema problema : this.modelo.getProblemas()) {
-            if (problema.getTitulo().equals(titulo)) {
-                pro = problema;
-            }
-        }
-        return pro;
-    }
-
-    public Docente getDocentePorCi(String ci) {
-        Docente ret = null;
-        for (Docente doc : this.modelo.getDocentes()) {
-            if (doc.getCi().equals(ci)) {
-                ret = doc;
-            }
-        }
-        return ret;
-    }
-
-    public Estudiante getEstudianteCi(String ci) {
-        Estudiante est = null;
-        for (Estudiante estudiante : this.modelo.getEstudiantes()) {
-            if (estudiante.getCi().equals(ci)) {
-                est = estudiante;
-            }
-        }
-
-        return est;
-    }
+public class Helpers implements Serializable {
 
     public int covertToNumber(String input) {
         int value = 0;
@@ -61,46 +30,32 @@ public class Helpers {
 
         return value;
     }
+    
+     public Sistema recuperarSistema(){
+        Sistema sistemaGuardado = new Sistema();
+        try {
+            FileInputStream archivo = new FileInputStream("Datos");
+            ObjectInputStream datos = new ObjectInputStream(archivo);
 
-    public boolean lineaErrorDatos(String lineaComparar, String lineaModelo) {
-        boolean lineaErrorDatos = false;
-        String lineaAComparar = lineaComparar.trim().toLowerCase();
-        String lModelo = lineaModelo.trim().toLowerCase();
-        for (int i = 0; i < lineaAComparar.length() && !lineaErrorDatos; i++) {
-            if (lineaAComparar.charAt(i) != lModelo.charAt(i)) {
-                lineaErrorDatos = true;
-            }
+            sistemaGuardado = (Sistema)datos.readObject();
+            System.out.println("encontró el sistema guardado");
+            System.out.println(sistemaGuardado.getEstudiantes());
+              
+        } catch (Exception e) {
+            System.out.println("No hay mas objetos: " + e.getMessage());
         }
-        return lineaErrorDatos;
+        return sistemaGuardado;
     }
-
-    public ArrayList<String> compareArchives(String linkArchivoEquipo, String linkArchivoProblema) {
-        ArrayList<String> errorLineas  = new ArrayList<>();
-        ArchivoLectura archivoEquipo = new ArchivoLectura(linkArchivoEquipo);
-        ArchivoLectura archivoProblema = new ArchivoLectura(linkArchivoProblema);
-
-        boolean hayMasLineasArchEquipo = archivoEquipo.hayMasLineas();
-        boolean hayMasLineasArchProblema = archivoProblema.hayMasLineas();
-
-        while (hayMasLineasArchEquipo && hayMasLineasArchProblema) {
-            if (!archivoEquipo.linea().equals(archivoProblema.linea())) {
-
-                if (this.lineaErrorDatos(archivoEquipo.linea(), archivoProblema.linea())) {
-                    errorLineas.add("d");
-                } else {
-                    errorLineas.add("f");
-                }
-            } else {
-                errorLineas.add("ok");
-            }
-            hayMasLineasArchEquipo = archivoEquipo.hayMasLineas();
-            hayMasLineasArchProblema = archivoProblema.hayMasLineas();
-        }
-
-        archivoEquipo.cerrar();
-        archivoProblema.cerrar();
-        
-        return errorLineas;
-    }
+     
+     public void guardarSistema(Sistema modelo) {
+         try {
+            FileOutputStream archivo = new FileOutputStream("Datos");
+            ObjectOutputStream out = new ObjectOutputStream(archivo);
+            out.writeObject(modelo);
+             System.out.println("Sistema al guardar:--->"+modelo);
+            out.close();
+        } catch (IOException e){
+        }           
+     }
 
 }
