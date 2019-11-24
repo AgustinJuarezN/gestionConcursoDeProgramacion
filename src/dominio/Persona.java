@@ -13,9 +13,9 @@ import java.io.Serializable;
  */
 public class Persona implements Serializable{
     
-    public String nombre;
-    public String ci;
-    public String mail;
+    private String nombre;
+    private String ci;
+    private String mail;
     
     public Persona(String nombre, String ci, String mail) {
         this.nombre = nombre;

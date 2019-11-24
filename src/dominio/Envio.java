@@ -19,14 +19,25 @@ public class Envio implements Serializable {
     private String lenguaje;
     private String linkSolucion;
     private final boolean resolvio;
+    private String descripcion;
     
-    public Envio(Equipo equipo, Problema problema, int tiempo, String lenguaje, String linkSolucion, boolean resolvio) {
+  
+    public Envio(Equipo equipo, Problema problema, int tiempo, String lenguaje, String linkSolucion, boolean resolvio, String descripcion) {
         this.equipo = equipo;
         this.problema = problema;
         this.tiempo = tiempo;
         this.lenguaje = lenguaje;
         this.linkSolucion = linkSolucion;
         this.resolvio = resolvio;
+        this.descripcion = descripcion;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Equipo getEquipo() {

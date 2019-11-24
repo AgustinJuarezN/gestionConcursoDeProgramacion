@@ -246,6 +246,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         CargaGlobalMenu.setMnemonic('y');
         CargaGlobalMenu.setText("Carga global");
+        CargaGlobalMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargaGlobalMenuActionPerformed(evt);
+            }
+        });
         editMenu.add(CargaGlobalMenu);
 
         menuBar.add(editMenu);
@@ -379,6 +384,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaEstadisticas vent = new VentanaEstadisticas(this.modelo);
         vent.setVisible(true);
     }//GEN-LAST:event_EstadisticasMenuActionPerformed
+
+    private void CargaGlobalMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargaGlobalMenuActionPerformed
+        VentanaCargaGlobal vent = new VentanaCargaGlobal(this.modelo);
+        vent.setVisible(true);
+    }//GEN-LAST:event_CargaGlobalMenuActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

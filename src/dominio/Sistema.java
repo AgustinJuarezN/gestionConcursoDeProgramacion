@@ -8,6 +8,7 @@ package dominio;
 import java.io.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import utils.ArchivoGrabacion;
 import utils.ArchivoLectura;
 import utils.Helpers;
 
@@ -82,23 +83,6 @@ public final class Sistema implements Serializable {
 
     public ArrayList<String> getLenguajes() {
         return lenguajes;
-    }
-
-    private ArrayList<Estudiante> recuperarEstudiante() {
-        ArrayList<Estudiante> lsEst = new ArrayList<>();
-        try {
-            FileInputStream archivo = new FileInputStream("Datos");
-            ObjectInputStream datos = new ObjectInputStream(archivo);
-
-            while (true) {
-                Estudiante e1 = (Estudiante) datos.readObject();
-                lsEst.add(e1);
-            }
-
-        } catch (Exception e) {
-            System.out.println("No hay mas objetos: " + e.getMessage());
-        }
-        return lsEst;
     }
 
     public boolean agregarObjeto(Object o, ArrayList<Object> lista) {
@@ -355,6 +339,68 @@ public final class Sistema implements Serializable {
         }
 
         return estadisticas;
+    }
+
+    public boolean existeEquipoNombre(String nombre) {
+        boolean existe = false;
+        for (Equipo eq : this.getEquipos()) {
+            if (eq.getNombre().equals(nombre)) {
+                existe = true;
+            }
+        }
+        return existe;
+    }
+
+    public boolean evitarLinea(int linea) {
+        boolean evitar = false;
+        ArchivoLectura arch = new ArchivoLectura("Inconsistencias");
+
+        while (arch.hayMasLineas()) {
+            if (Character.getNumericValue(arch.linea().charAt(0)) == linea) {
+                evitar = true;
+            } 
+        }
+
+        arch.cerrar();
+        return evitar;
+    }
+
+    public boolean cargaGlobalEnvios(String path) {
+        String[] linea;
+        boolean seCargo = true;
+        ArchivoLectura arch = new ArchivoLectura(path);
+        ArchivoGrabacion result = new ArchivoGrabacion("Inconsistencias.txt");
+        int countLinea = 0;
+        while (arch.hayMasLineas()) {
+            countLinea++;
+            if (!this.evitarLinea(countLinea)) {
+                linea = arch.linea().split("#");
+                System.out.println(java.util.Arrays.toString(arch.linea().split("#")));
+                if (linea.length == 5) {
+                    Equipo eq = this.getEquipoPorNombre(linea[0]);
+                    Problema prob = this.getProblemaPorTitulo(linea[2]);
+                    if (eq != null && prob != null) {
+                        int tiempo = Integer.parseInt(linea[3]);
+                        String lenguaje = linea[1].trim();
+                        boolean resolvio = linea[4].contains("ok");
+                        String descripcion = linea[4];
+                        try {
+                            this.agregarEnvio(new Envio(eq, prob, tiempo, lenguaje, "", resolvio, descripcion));
+
+                        } catch (Exception e) {
+                        }
+                    } else {
+                        System.out.println("No existe equipo o problema");
+                        result.grabarLinea(countLinea + " - " + linea[0]);
+                    }
+                }
+            } else {
+                System.out.println("Se evito linea en carga");
+            }
+        }
+        arch.cerrar();
+        result.cerrar();
+        return seCargo;
     }
 
     @Override
