@@ -18,7 +18,7 @@ public class Equipo implements Serializable, Comparable<Equipo> {
     private ArrayList<Estudiante> integrantes = new ArrayList<>();
     private ArrayList<Problema> multas  = new ArrayList<>();
     private int ejerciciosResueltos;
-    public int tiempoTotalEjericicios;
+    private int tiempoTotalEjericicios;
 
     public Equipo(String nombre, ArrayList<Estudiante> integrantes) {
         this.nombre = nombre;

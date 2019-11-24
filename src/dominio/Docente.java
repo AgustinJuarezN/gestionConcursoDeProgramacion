@@ -11,7 +11,7 @@ package dominio;
  */
 public class Docente extends Persona {
     
-    public String añoIngreso;
+    private String añoIngreso;
     
     public Docente(String nombre, String ci, String mail,String añoIngreso) {
         super(nombre, ci, mail);
