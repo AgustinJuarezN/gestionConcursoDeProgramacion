@@ -1,5 +1,5 @@
 la suma es 20
 la suma es 56
 la suma es 80
-la suma es 3221
-la suma es 41
+la suma es 3223
+la suma es 45

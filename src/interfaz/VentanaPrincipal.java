@@ -54,7 +54,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         helpMenu = new javax.swing.JMenu();
         VisualizacionMenu = new javax.swing.JMenuItem();
         EstadisticasMenu = new javax.swing.JMenuItem();
-        VisualizacionMenu1 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -197,15 +196,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         helpMenu.add(EstadisticasMenu);
 
-        VisualizacionMenu1.setMnemonic('c');
-        VisualizacionMenu1.setText("Envios");
-        VisualizacionMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VisualizacionMenu1ActionPerformed(evt);
-            }
-        });
-        helpMenu.add(VisualizacionMenu1);
-
         menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
@@ -260,18 +250,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         vent.setVisible(true);
     }//GEN-LAST:event_CargaIndividualMenuActionPerformed
 
-    private void VisualizacionMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizacionMenu1ActionPerformed
-        VentanaEnvios vent = new VentanaEnvios(this.modelo);
-        vent.setVisible(true);
-    }//GEN-LAST:event_VisualizacionMenu1ActionPerformed
-
     private void VisualizacionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizacionMenuActionPerformed
         if (this.modelo.getEquipos().size() != 0 && this.modelo.getProblemas().size() != 0) {
             VentanaResultados vent = new VentanaResultados(this.modelo);
+            this.modelo.addObserver(vent);
             vent.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No hay ningun equipo y problema registrado en el sistema", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
+       
     }//GEN-LAST:event_VisualizacionMenuActionPerformed
 
     private void EstadisticasMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadisticasMenuActionPerformed
@@ -290,7 +277,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem CargaIndividualMenu;
     private javax.swing.JMenuItem EstadisticasMenu;
     private javax.swing.JMenuItem VisualizacionMenu;
-    private javax.swing.JMenuItem VisualizacionMenu1;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;

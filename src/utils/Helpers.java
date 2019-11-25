@@ -33,11 +33,8 @@ public class Helpers implements Serializable {
             ObjectInputStream datos = new ObjectInputStream(archivo);
 
             sistemaGuardado = (Sistema) datos.readObject();
-            System.out.println("encontró el sistema guardado");
-            System.out.println(sistemaGuardado.getEstudiantes());
 
         } catch (Exception e) {
-            System.out.println("No hay mas objetos: " + e.getMessage());
         }
         return sistemaGuardado;
     }
@@ -47,7 +44,6 @@ public class Helpers implements Serializable {
             FileOutputStream archivo = new FileOutputStream("Datos");
             ObjectOutputStream out = new ObjectOutputStream(archivo);
             out.writeObject(modelo);
-            System.out.println("Sistema al guardar:--->" + modelo);
             out.close();
         } catch (IOException e) {
         }

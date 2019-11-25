@@ -1,7 +1,6 @@
 package interfaz;
 
 import dominio.*;
-import java.util.ArrayList;
 import java.util.regex.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;

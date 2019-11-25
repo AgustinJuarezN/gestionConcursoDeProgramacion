@@ -2,6 +2,7 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 import utils.ArchivoGrabacion;
 import utils.ArchivoLectura;
 import utils.Helpers;
@@ -11,7 +12,7 @@ import utils.Helpers;
  * @author Agustín Juárez - 236487
  * @author Eduardo Thevenet - 168626
  */
-public final class Sistema implements Serializable {
+public final class Sistema extends Observable implements Serializable {
 
     private ArrayList<Estudiante> estudiantes;
     private ArrayList<Docente> docentes;
@@ -94,6 +95,8 @@ public final class Sistema implements Serializable {
         if (!estudiantes.contains(e)) {
             estudiantes.add((Estudiante) e);
             estudiante = true;
+            setChanged();
+            notifyObservers();
         }
         return estudiante;
     }
@@ -103,6 +106,8 @@ public final class Sistema implements Serializable {
         if (!docentes.contains(d)) {
             docentes.add((Docente) d);
             docente = true;
+            setChanged();
+            notifyObservers();
         }
         return docente;
     }
@@ -112,6 +117,8 @@ public final class Sistema implements Serializable {
         if (!equipos.contains(eq)) {
             equipos.add((Equipo) eq);
             seCreo = true;
+            setChanged();
+            notifyObservers();
         }
         return seCreo;
     }
@@ -121,6 +128,8 @@ public final class Sistema implements Serializable {
         if (!problemas.contains(pro)) {
             problemas.add((Problema) pro);
             seCreo = true;
+            setChanged();
+            notifyObservers();
         }
         return seCreo;
     }
@@ -130,6 +139,8 @@ public final class Sistema implements Serializable {
         if (!envios.contains(env)) {
             envios.add((Envio) env);
             seCreo = true;
+            setChanged();
+            notifyObservers();
         }
         return seCreo;
     }
@@ -390,12 +401,9 @@ public final class Sistema implements Serializable {
                         } catch (Exception e) {
                         }
                     } else {
-                        System.out.println("No existe equipo o problema");
                         result.grabarLinea(countLinea + " - " + linea[0]);
                     }
                 }
-            } else {
-                System.out.println("Se evito linea en carga");
             }
         }
         arch.cerrar();

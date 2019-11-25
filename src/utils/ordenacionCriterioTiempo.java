@@ -12,7 +12,7 @@ public class ordenacionCriterioTiempo implements Comparator<Equipo> {
 
     @Override
     public int compare(Equipo eq1, Equipo eq2) {
-        return eq2.getTiempoTotalEjercicios() - eq1.getTiempoTotalEjercicios();
+        return eq1.getTiempoTotalEjercicios() - eq2.getTiempoTotalEjercicios();
     }
 
 }

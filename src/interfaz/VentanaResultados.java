@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,17 +21,26 @@ import utils.ordenacionCriterioTiempo;
  * @author Agustín Juárez - 236487
  * @author Eduardo Thevenet - 168626
  */
-public class VentanaResultados extends javax.swing.JFrame {
+public class VentanaResultados extends javax.swing.JFrame implements Observer {
 
-    private Sistema modelo;
+    private Sistema ovModelo;
     private JButton[][] botones;
     private JButton[][] botonesProblemas;
     private JButton[][] botonesEquipos;
     ArrayList<Equipo> listEquipos = new ArrayList<>();
+    
+    @Override
+    public void update(Observable obs, Object obj)
+   {
+      if (obs == ovModelo)
+      {
+          this.actualizar();
+      }
+   }
 
     public VentanaResultados(Sistema modelo) {
-        this.modelo = modelo;
-        this.listEquipos = this.modelo.getEquipos();
+        this.ovModelo = modelo;
+        this.listEquipos = this.ovModelo.getEquipos();
         if (this.listEquipos.size() != 0) {
             this.setLocationRelativeTo(null);
             initComponents();
@@ -47,11 +58,11 @@ public class VentanaResultados extends javax.swing.JFrame {
         panelMatriz.setLayout(new GridLayout(cantFilas, cantColumnas));
         this.botones = new JButton[cantFilas][cantColumnas];
         for (int i = 0; i < botones.length; i++) {
-            Equipo equipo = this.modelo.getEquipoPorNombre(this.botonesEquipos[i][0].getText());
+            Equipo equipo = this.ovModelo.getEquipoPorNombre(this.botonesEquipos[i][0].getText());
             for (int j = 0; j < botones[0].length; j++) {
-                Problema problema = this.modelo.getProblemaPorTitulo(this.botonesProblemas[0][j].getText());
+                Problema problema = this.ovModelo.getProblemaPorTitulo(this.botonesProblemas[0][j].getText());
                 JButton jButton = new JButton();
-                int info[] = this.modelo.infoEquipoPorProblema(equipo, problema);
+                int info[] = this.ovModelo.infoEquipoPorProblema(equipo, problema);
                 int intentos = info[3];
                 int multas = info[2];
                 int tiempoMulta = multas * 20;
@@ -104,14 +115,14 @@ public class VentanaResultados extends javax.swing.JFrame {
         jPanelProblemas.removeAll();
         this.botonesProblemas = null;
         int cantFilas = 1;
-        int cantColumnas = this.modelo.getProblemas().size();
+        int cantColumnas = this.ovModelo.getProblemas().size();
         jPanelProblemas.setLayout(new GridLayout(cantFilas, cantColumnas));
         this.botonesProblemas = new JButton[cantFilas][cantColumnas];
 
         for (int i = 0; i < this.botonesProblemas.length; i++) {
             for (int j = 0; j < this.botonesProblemas[0].length; j++) {
                 JButton jButton = new JButton();
-                jButton.setText(this.modelo.getProblemas().get(j).getTitulo());
+                jButton.setText(this.ovModelo.getProblemas().get(j).getTitulo());
                 jPanelProblemas.add(jButton);
                 this.botonesProblemas[i][j] = jButton;
             }
@@ -143,10 +154,9 @@ public class VentanaResultados extends javax.swing.JFrame {
     }
 
     private void clickBoton(int fila, int columna) {
-        Equipo eq = this.modelo.getEquipoPorNombre(this.botonesEquipos[fila][0].getText());
-        Problema pro = this.modelo.getProblemaPorTitulo(this.botonesProblemas[0][columna].getText());
-        ArrayList<Envio> envios = this.modelo.getEnviosPorProblemaYEquipo(eq, pro);
-        System.out.println("Envios: " + envios);
+        Equipo eq = this.ovModelo.getEquipoPorNombre(this.botonesEquipos[fila][0].getText());
+        Problema pro = this.ovModelo.getProblemaPorTitulo(this.botonesProblemas[0][columna].getText());
+        ArrayList<Envio> envios = this.ovModelo.getEnviosPorProblemaYEquipo(eq, pro);
 
         JPanel panel = new JPanel();
         JTextArea jt = new JTextArea(10, 10);
@@ -227,7 +237,6 @@ public class VentanaResultados extends javax.swing.JFrame {
 
     private void ButtonOrdenarTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOrdenarTiempoActionPerformed
         Collections.sort(this.listEquipos, new ordenacionCriterioTiempo());
-
         this.actualizar();
     }//GEN-LAST:event_ButtonOrdenarTiempoActionPerformed
 

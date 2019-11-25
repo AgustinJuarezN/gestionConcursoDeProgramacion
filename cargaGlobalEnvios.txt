@@ -1,0 +1,3 @@
+Equipo 1#JAVA#Flores 2#26#ok
+Equipo 2#PYTHON#Flores 2#26#incorrecto datos
+Equipo 3#JAVA#Flores 2#15#incorrecto formato

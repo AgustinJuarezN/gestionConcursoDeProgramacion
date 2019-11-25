@@ -134,6 +134,7 @@ public class VentanaAgregarEquipo extends javax.swing.JFrame {
             this.modelo.agregarEquipo(eq);
 
             this.actualizarLista();
+            this.cargarListaEstudiantes();
         } else {
             JOptionPane.showMessageDialog(null, "Debes seleccionar 3 integrantes para el equipo.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
