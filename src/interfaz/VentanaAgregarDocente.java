@@ -56,6 +56,7 @@ public class VentanaAgregarDocente extends javax.swing.JFrame {
         jListDocentes = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Agregar Docente");
         setMinimumSize(new java.awt.Dimension(630, 400));
         getContentPane().setLayout(null);
 

@@ -55,6 +55,7 @@ public class VentanaAgregarEstudiante extends javax.swing.JFrame {
         jListEstudiantes = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Agregar Estudiante");
         setMinimumSize(new java.awt.Dimension(650, 400));
         setSize(new java.awt.Dimension(250, 440));
         getContentPane().setLayout(null);

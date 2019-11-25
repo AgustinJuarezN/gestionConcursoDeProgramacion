@@ -1,7 +1,6 @@
 package interfaz;
 
 import dominio.*;
-import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +40,7 @@ public class VentanaEstadisticas extends javax.swing.JFrame {
         jTableEstadisticas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Estadísticas");
         setMinimumSize(new java.awt.Dimension(600, 400));
         setSize(new java.awt.Dimension(250, 440));
         getContentPane().setLayout(null);

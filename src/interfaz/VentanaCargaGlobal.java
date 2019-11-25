@@ -41,6 +41,7 @@ public class VentanaCargaGlobal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Carga global de resultados de envíos");
         setMinimumSize(new java.awt.Dimension(600, 400));
         setSize(new java.awt.Dimension(250, 440));
         getContentPane().setLayout(null);

@@ -102,7 +102,7 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Ingreso manual");
+        setTitle("Concurso de programación - Carga Individual");
         setMinimumSize(new java.awt.Dimension(800, 600));
         setSize(new java.awt.Dimension(250, 440));
         getContentPane().setLayout(null);
@@ -325,7 +325,6 @@ public class VentanaCargaIndividual extends javax.swing.JFrame {
                     jListResultado.setModel(model);
                     ListCellRenderer renderer = new RenderizadorResultado();
                     jListResultado.setCellRenderer(renderer);
-                    System.out.println("cant errores:" + cantErrores);
 
                     Envio env = new Envio(selectedE, selectedP, Integer.parseInt(jTextFieldTiempo.getText()), this.modelo.getLenguajePorIndex(jComboBoxLenguaje.getSelectedIndex()), this.path, resolvio, descripcion);
                     this.modelo.agregarEnvio(env);

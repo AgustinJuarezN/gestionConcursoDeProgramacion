@@ -20,7 +20,6 @@ public class Helpers implements Serializable {
         try {
             value = Integer.parseInt(input);
         } catch (NumberFormatException ex) {
-            System.out.println("Invalid value " + input);
         }
 
         return value;

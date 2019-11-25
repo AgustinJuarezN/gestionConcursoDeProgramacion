@@ -386,7 +386,6 @@ public final class Sistema extends Observable implements Serializable {
             countLinea++;
             if (!this.evitarLinea(countLinea)) {
                 linea = arch.linea().split("#");
-                System.out.println(java.util.Arrays.toString(arch.linea().split("#")));
                 if (linea.length == 5) {
                     Equipo eq = this.getEquipoPorNombre(linea[0]);
                     Problema prob = this.getProblemaPorTitulo(linea[2]);

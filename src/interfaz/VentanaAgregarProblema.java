@@ -70,6 +70,7 @@ public class VentanaAgregarProblema extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Agregar Problema");
         setMinimumSize(new java.awt.Dimension(800, 650));
         setSize(new java.awt.Dimension(250, 460));
         getContentPane().setLayout(null);

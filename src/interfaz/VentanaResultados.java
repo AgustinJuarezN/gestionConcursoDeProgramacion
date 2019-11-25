@@ -53,8 +53,6 @@ public class VentanaResultados extends javax.swing.JFrame implements Observer {
         this.botones = null;
         int cantFilas = botonesEquipos.length;
         int cantColumnas = botonesProblemas[0].length;
-        System.out.println("cant filas: " + cantFilas);
-        System.out.println("cant columnas: " + cantColumnas);
         panelMatriz.setLayout(new GridLayout(cantFilas, cantColumnas));
         this.botones = new JButton[cantFilas][cantColumnas];
         for (int i = 0; i < botones.length; i++) {
@@ -102,7 +100,6 @@ public class VentanaResultados extends javax.swing.JFrame implements Observer {
                 jButton.setText(this.listEquipos.get(i).getNombre());
                 jPanelEquipos.add(jButton);
                 this.botonesEquipos[i][j] = jButton;
-                System.out.println("equipo button:" + jButton.getText());
             }
         }
 
@@ -163,7 +160,7 @@ public class VentanaResultados extends javax.swing.JFrame implements Observer {
         String line = "";
 
         for (Envio env : envios) {
-            line += env.getProblema() + " | " + env.getEquipo() + " | " + env.getResolvio() + " | " + env.getTiempo() + "\n";
+            line += "Problema: "+env.getProblema() + " | Equipo: " + env.getEquipo() + " | resolvió problema: " + env.getResolvio() + " | tiempo: " + env.getTiempo() + "\n";
         }
 
         jt.setText(line);
@@ -189,6 +186,7 @@ public class VentanaResultados extends javax.swing.JFrame implements Observer {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Resultados");
         setMinimumSize(new java.awt.Dimension(560, 400));
         setSize(new java.awt.Dimension(250, 420));
         getContentPane().setLayout(null);

@@ -71,6 +71,7 @@ public class VentanaAgregarEquipo extends javax.swing.JFrame {
         jButtonAgregarEquipo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Concurso de programación - Agregar Equipo");
         setMinimumSize(new java.awt.Dimension(600, 400));
         getContentPane().setLayout(null);
 
