@@ -1,19 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio;
 
 /**
  *
- * @author agustinjuarez
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public class Docente extends Persona {
-    
+
     private String añoIngreso;
-    
-    public Docente(String nombre, String ci, String mail,String añoIngreso) {
+
+    public Docente(String nombre, String ci, String mail, String añoIngreso) {
         super(nombre, ci, mail);
         this.añoIngreso = añoIngreso;
     }
@@ -25,5 +21,5 @@ public class Docente extends Persona {
     public void setAñoIngreso(String añoIngreso) {
         this.añoIngreso = añoIngreso;
     }
-    
+
 }

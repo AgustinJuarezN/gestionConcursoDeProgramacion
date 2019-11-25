@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import java.awt.Color;
@@ -14,7 +9,8 @@ import javax.swing.ListCellRenderer;
 
 /**
  *
- * @author ajuarez
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public class RenderizadorResultado implements ListCellRenderer {
 
@@ -22,7 +18,7 @@ public class RenderizadorResultado implements ListCellRenderer {
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index,
-    boolean isSelected, boolean cellHasFocus) {
+            boolean isSelected, boolean cellHasFocus) {
         Color theBackground = null;
         String theText = null;
 
@@ -30,19 +26,18 @@ public class RenderizadorResultado implements ListCellRenderer {
                 isSelected, cellHasFocus);
 
         theText = (String) value;
-        
-        
+
         if (theText.contains("+")) {
             theBackground = Color.GREEN;
-        }else if (theText.contains("-")) {
+        } else if (theText.contains("-")) {
             theBackground = Color.YELLOW;
-        }else {
+        } else {
             theBackground = Color.RED;
         }
 
         renderer.setText(theText);
         renderer.setBackground(theBackground);
-        
+
         return renderer;
     }
 }

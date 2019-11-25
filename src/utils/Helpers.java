@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import dominio.*;
@@ -15,7 +10,8 @@ import java.io.Serializable;
 
 /**
  *
- * @author agustinjuarez
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public class Helpers implements Serializable {
 
@@ -29,32 +25,42 @@ public class Helpers implements Serializable {
 
         return value;
     }
-    
-     public Sistema recuperarSistema(){
+
+    public Sistema recuperarSistema() {
         Sistema sistemaGuardado = new Sistema();
         try {
             FileInputStream archivo = new FileInputStream("Datos");
             ObjectInputStream datos = new ObjectInputStream(archivo);
 
-            sistemaGuardado = (Sistema)datos.readObject();
+            sistemaGuardado = (Sistema) datos.readObject();
             System.out.println("encontró el sistema guardado");
             System.out.println(sistemaGuardado.getEstudiantes());
-              
+
         } catch (Exception e) {
             System.out.println("No hay mas objetos: " + e.getMessage());
         }
         return sistemaGuardado;
     }
-     
-     public void guardarSistema(Sistema modelo) {
-         try {
+
+    public void guardarSistema(Sistema modelo) {
+        try {
             FileOutputStream archivo = new FileOutputStream("Datos");
             ObjectOutputStream out = new ObjectOutputStream(archivo);
             out.writeObject(modelo);
-             System.out.println("Sistema al guardar:--->"+modelo);
+            System.out.println("Sistema al guardar:--->" + modelo);
             out.close();
-        } catch (IOException e){
-        }           
-     }
+        } catch (IOException e) {
+        }
+    }
+
+    public boolean esNumero(String text) {
+        boolean es = true;
+        try {
+            Integer.parseInt(text);
+        } catch (Exception e) {
+            es = false;
+        }
+        return es;
+    }
 
 }
