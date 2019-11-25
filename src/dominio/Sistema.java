@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio;
 
-import java.io.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import utils.ArchivoGrabacion;
@@ -14,7 +8,8 @@ import utils.Helpers;
 
 /**
  *
- * @author agustinjuarez
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public final class Sistema implements Serializable {
 
@@ -311,12 +306,17 @@ public final class Sistema implements Serializable {
 
     public int menorTiempoEnResolverProblema(Problema p) {
         int menorTiempo = Integer.MAX_VALUE;
+
         for (Envio env : this.getEnvios()) {
             if (env.getProblema().equals(p) && env.getResolvio()) {
                 if (env.getTiempo() < menorTiempo) {
                     menorTiempo = env.getTiempo();
                 }
             }
+        }
+
+        if (menorTiempo == Integer.MAX_VALUE) {
+            menorTiempo = 0;
         }
 
         return menorTiempo;
@@ -358,7 +358,7 @@ public final class Sistema implements Serializable {
         while (arch.hayMasLineas()) {
             if (Character.getNumericValue(arch.linea().charAt(0)) == linea) {
                 evitar = true;
-            } 
+            }
         }
 
         arch.cerrar();

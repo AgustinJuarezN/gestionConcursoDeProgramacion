@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaz;
 
 import dominio.*;
@@ -11,7 +6,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author agustinjuarez
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public class VentanaEstadisticas extends javax.swing.JFrame {
 
@@ -20,7 +16,6 @@ public class VentanaEstadisticas extends javax.swing.JFrame {
     /**
      * Creates new form ventanaAgregarDocente
      */
-
     public VentanaEstadisticas() {
         initComponents();
     }
@@ -69,7 +64,7 @@ public class VentanaEstadisticas extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableEstadisticas);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(80, 90, 480, 150);
+        jScrollPane2.setBounds(60, 90, 480, 150);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -85,9 +80,8 @@ public class VentanaEstadisticas extends javax.swing.JFrame {
         model.addColumn("Tiempo 1era ok");
 
 // Append a row 
-        
         for (int i = 0; i < this.modelo.getEstadisticas().length; i++) {
-           model.addRow(this.modelo.getEstadisticas()[i]);
+            model.addRow(this.modelo.getEstadisticas()[i]);
         }
 
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaz;
 
 import dominio.*;
@@ -21,7 +16,8 @@ import utils.ordenacionCriterioTiempo;
 
 /**
  *
- * @author agustinjuarez
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public class VentanaResultados extends javax.swing.JFrame {
 
@@ -32,11 +28,13 @@ public class VentanaResultados extends javax.swing.JFrame {
     ArrayList<Equipo> listEquipos = new ArrayList<>();
 
     public VentanaResultados(Sistema modelo) {
-        initComponents();
         this.modelo = modelo;
         this.listEquipos = this.modelo.getEquipos();
-        this.setLocationRelativeTo(null);
-        this.actualizar();
+        if (this.listEquipos.size() != 0) {
+            this.setLocationRelativeTo(null);
+            initComponents();
+            this.actualizar();
+        }
     }
 
     public void cargarBotonesEstadistica() {
@@ -54,11 +52,6 @@ public class VentanaResultados extends javax.swing.JFrame {
                 Problema problema = this.modelo.getProblemaPorTitulo(this.botonesProblemas[0][j].getText());
                 JButton jButton = new JButton();
                 int info[] = this.modelo.infoEquipoPorProblema(equipo, problema);
-
-                /*System.out.println("resolvio: " + this.modelo.infoEquipoPorProblema(equipo, problema)[0]);
-                System.out.println("tiempo: " + this.modelo.infoEquipoPorProblema(equipo, problema)[1]);
-                System.out.println("multas: " + this.modelo.infoEquipoPorProblema(equipo, problema)[2]);
-                System.out.println("intentos: " + this.modelo.infoEquipoPorProblema(equipo, problema)[3]);*/
                 int intentos = info[3];
                 int multas = info[2];
                 int tiempoMulta = multas * 20;

@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio;
 
 import java.io.Serializable;
 
 /**
  *
- * @author Usuario
+ * @author Agustín Juárez - 236487
+ * @author Eduardo Thevenet - 168626
  */
 public class Envio implements Serializable {
-    
+
     private Equipo equipo;
     private Problema problema;
     private int tiempo;
@@ -20,8 +16,7 @@ public class Envio implements Serializable {
     private String linkSolucion;
     private final boolean resolvio;
     private String descripcion;
-    
-  
+
     public Envio(Equipo equipo, Problema problema, int tiempo, String lenguaje, String linkSolucion, boolean resolvio, String descripcion) {
         this.equipo = equipo;
         this.problema = problema;
@@ -31,7 +26,7 @@ public class Envio implements Serializable {
         this.resolvio = resolvio;
         this.descripcion = descripcion;
     }
-    
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -83,7 +78,7 @@ public class Envio implements Serializable {
     public boolean getResolvio() {
         return resolvio;
     }
-     
+
     @Override
     public String toString() {
         return "Envio{" + "equipo=" + equipo + ", problema=" + problema + ", tiempo=" + tiempo + ", lenguaje=" + lenguaje + ", linkSolucion=" + linkSolucion + ", resolvio=" + resolvio + '}';
