@@ -179,9 +179,13 @@ public class VentanaAgregarProblema extends javax.swing.JFrame {
             } else {
                 erroresValidaciones += "El campo descripción no puede contener números \n";
             }
+            
+            if (this.modelo.getDocentes().size() == 0) {
+                erroresValidaciones += "No hay docentes registrados en el sistema \n";
+            }
 
-            responsable = this.modelo.getDocentePorCi(jComboBoxResponsableProblema.getSelectedItem().toString());
-            if (erroresValidaciones.equals("") && responsable != null) {
+            if (erroresValidaciones.equals("")) {
+                responsable = this.modelo.getDocentePorCi(jComboBoxResponsableProblema.getSelectedItem().toString());
                 Problema p = new Problema(titulo, descripcion, responsable, this.path);
                 if (!this.modelo.agregarProblema(p)) {
                     JOptionPane.showMessageDialog(null, "Ya existe un problema con ese titulo.", "Informacion", JOptionPane.WARNING_MESSAGE);
